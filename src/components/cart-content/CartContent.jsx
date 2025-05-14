@@ -1,18 +1,37 @@
-import CartEmptyContent from "../cart-empty-content/CartEmptyContent"
-import CartFullContent from "../cart-full-content/CartFullContent"
+import CartEmptyContent from '../cart-empty-content/CartEmptyContent';
+import CartFullContent from '../cart-full-content/CartFullContent';
 
-const CartContent = () => {
+const CartContent = ({ cartProducts, setCartProducts }) => {
+  return (
+    <>
+      <h2 className='titleL'>
+        Your Cart ({defineAmountOfProduct(cartProducts)})
+      </h2>
 
-    return (
-        <>
-        <h2 class="titleL">Your Cart (0)</h2>
-
-        {/* poner un binario, si cart está empty se muestra este componente */}
-        <CartEmptyContent />
-        <CartFullContent />
-        
+      {/* poner un binario, si cart está empty se muestra este componente */}
+      {cartProducts.length <= 0 && <CartEmptyContent />}
+      {cartProducts.length >= 1 && (
+        <CartFullContent
+          cartProducts={cartProducts}
+          setCartProducts={setCartProducts}
+        />
+      )}
     </>
-    )
-}
+  );
+};
 
-export default CartContent
+const defineAmountOfProduct = cartProducts => {
+  if (cartProducts.length === 0) {
+    return;
+  } else {
+    let amountOfEachProduct = cartProducts.map(cartProduct => {
+      return cartProduct.quantity;
+    });
+    const totalAmountProducts = amountOfEachProduct.reduce((acc, number) => {
+      return acc + number;
+    });
+    return totalAmountProducts;
+  }
+};
+
+export default CartContent;
