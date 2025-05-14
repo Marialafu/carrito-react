@@ -1,0 +1,15 @@
+.dessertCard{
+     display: flex;
+  flex-direction: column;
+}
+.topCard{
+
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bottomCard{
+display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}

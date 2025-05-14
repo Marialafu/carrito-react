@@ -1,34 +1,64 @@
-const CartFullContent = () => {
-  return (
-    <section className='fullCartContainer'>
-      <div className='cartProductContainer'>
-        <div className='textFullCartContainer'>
-          <div className='titleS'>Nombre product</div>
+import styles from './cartFullContent.module.css'
 
-          <div className='subtitleFullCartContainer'>
-            <span className='subtitle featuredText'>Cantidad producto</span>
-            <span className='categoryText'>Precio por ud</span>
-            <span className='subtitle'>Precio total</span>
+const CartFullContent = ({cartProducts}) => {
+
+  const productQuantityClass = `${styles.subtitle} ${styles.featuredText}`
+  const xButtonClass = `${styles.circle} ${styles.brownCircle} ${styles.eliminateButtonFullCartContainer}`
+  const orderTotalClass = `${styles.categoryText} ${styles.darkText}`
+  const buttonClass = `${styles.button} ${styles.buttonSelected} ${styles.confirmOrderButtonContainer}`
+
+  return (
+    <section className={styles.fullCartContainer}>
+
+      {cartProducts.map(product => {
+        return (
+        <div className={styles.cartProductContainer} key={product.id}>
+        <div className={styles.textFullCartContainer}>
+          <div className='titleS'>{product.title}</div>
+
+          <div className={styles.subtitleFullCartContainer}>
+            <span className={productQuantityClass}>x{product.quantity}</span>
+            <span className={styles.categoryText}>{product.price}$ ud</span>
+            <span className={styles.subtitle}>{finalProductPrice(product)}$ total</span>
           </div>
 
-          <div className='circle brownCircle eliminateButtonFullCartContainer'></div>
+          <div className={xButtonClass}></div>
         </div>
+        </div>
+      )})}
+
+      <div className={styles.totalOrderContainer}>
+        <span className={orderTotalClass}>Order Total</span>
+        <span className='titleM'>{finalCartPrice(cartProducts)}$</span>
       </div>
-      <div className='totalOrderContainer'>
-        <span className='categoryText darkText'>Order Total</span>
-        <span className='titleM'>Total Ordered Price</span>
-      </div>
-      <div className='carbonLabelContainer'>
+      <div className={styles.carbonLabelContainer}>
         <img src='/assets/images/icon-carbon-neutral.svg' alt='' />
-        <span className='categoryText darkText'>
-          This is a <span className='subtitle'>carbon-neutral</span> delivery
+        <span className={orderTotalClass}>
+          This is a <span className={styles.subtitle}>carbon-neutral</span> delivery
         </span>
       </div>
-      <button className='button buttonSelected confirmOrderButtonContainer'>
+      <button className={buttonClass}>
         Confirm Order
       </button>
     </section>
   );
 };
+
+const finalProductPrice = (product) => {
+  const result = product.price * product.quantity
+  return result
+}
+
+const finalCartPrice = (cartProducts) => {
+
+    const productFinalPrice = cartProducts.map(cartProduct => {
+      return cartProduct.price * cartProduct.quantity})
+  
+    const finalOrderPrice = productFinalPrice.reduce((acc, number) => {
+      return acc + number})
+    
+    return finalOrderPrice
+  
+}
 
 export default CartFullContent;

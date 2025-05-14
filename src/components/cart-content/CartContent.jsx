@@ -1,7 +1,7 @@
 import CartEmptyContent from '../cart-empty-content/CartEmptyContent';
 import CartFullContent from '../cart-full-content/CartFullContent';
 
-const CartContent = ({ cartProducts, setCartProducts }) => {
+const CartContent = ({ cartProducts }) => {
   return (
     <>
       <h2 className='titleL'>
@@ -13,7 +13,6 @@ const CartContent = ({ cartProducts, setCartProducts }) => {
       {cartProducts.length >= 1 && (
         <CartFullContent
           cartProducts={cartProducts}
-          setCartProducts={setCartProducts}
         />
       )}
     </>
@@ -21,15 +20,12 @@ const CartContent = ({ cartProducts, setCartProducts }) => {
 };
 
 const defineAmountOfProduct = cartProducts => {
+
   if (cartProducts.length === 0) {
-    return;
+    return 0;
   } else {
-    let amountOfEachProduct = cartProducts.map(cartProduct => {
-      return cartProduct.quantity;
-    });
-    const totalAmountProducts = amountOfEachProduct.reduce((acc, number) => {
-      return acc + number;
-    });
+    let amountOfEachProduct = cartProducts.map(cartProduct => cartProduct.quantity);
+    const totalAmountProducts = amountOfEachProduct.reduce((acc, number) =>  acc + number);
     return totalAmountProducts;
   }
 };

@@ -1,12 +1,13 @@
 import CardButton from '../card-button/CardButton';
 import CardImg from '../card-img/CardImg';
+import styles from './cartProducts.module.css'
 
 const CartProducts = ({ product, cartProducts, setCartProducts }) => {
   const productAdded = findProductInCart(cartProducts, product);
 
   return (
-    <article className='dessertCard'>
-      <div className='topCard'>
+    <article className={styles.dessertCard}>
+      <div className={styles.topCard}>
         <CardImg {...product} />
         <CardButton
           productAdded={productAdded}
@@ -22,7 +23,7 @@ const CartProducts = ({ product, cartProducts, setCartProducts }) => {
         />
       </div>
 
-      <div className='bottomCard'>
+      <div className={styles.bottomCard}>
         <p className='text featuredText'>${product.price}</p>
         <p className='text'>{product.title}</p>
         <p className='categoryText'>{product.name}</p>
