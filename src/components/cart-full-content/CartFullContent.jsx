@@ -1,6 +1,6 @@
 import styles from './cartFullContent.module.css'
 
-const CartFullContent = ({cartProducts}) => {
+const CartFullContent = ({cartProducts, setCartProducts}) => {
 
   const productQuantityClass = `${styles.subtitle} ${styles.featuredText}`
   const xButtonClass = `${styles.circle} ${styles.brownCircle} ${styles.eliminateButtonFullCartContainer}`
@@ -22,7 +22,9 @@ const CartFullContent = ({cartProducts}) => {
             <span className={styles.subtitle}>{finalProductPrice(product)}$ total</span>
           </div>
 
-          <div className={xButtonClass}></div>
+          <div 
+          onClick={() => eliminateCartProduct(cartProducts, setCartProducts, product)}
+          className={xButtonClass}></div>
         </div>
         </div>
       )})}
@@ -43,6 +45,21 @@ const CartFullContent = ({cartProducts}) => {
     </section>
   );
 };
+
+
+//NO FUNCIONA
+const eliminateCartProduct = (cartProducts, setCartProducts, product) => {
+  const findProduct = cartProducts.find(cartProduct => {
+    return product.id === cartProduct.id
+  })
+
+  const cartList = cartProducts.filter(cartProduct => {
+    return cartProduct !== findProduct
+  })
+
+  setCartProducts(cartList)
+
+}
 
 const finalProductPrice = (product) => {
   const result = product.price * product.quantity
