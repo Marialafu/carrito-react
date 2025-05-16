@@ -37,6 +37,7 @@ const App = () => {
           <section className='cartContainer'>
             <CartContent
               cartProducts={cartProducts}
+              setCartProducts={setCartProducts}
             />
           </section>
         </section>
