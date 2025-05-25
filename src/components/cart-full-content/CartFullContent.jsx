@@ -10,26 +10,33 @@ const CartFullContent = ({ cartProducts, setCartProducts }) => {
     <section className={styles.fullCartContainer}>
       {cartProducts.map(product => {
         return (
-          <div className={styles.cartProductContainer} key={product.id}>
+          <div
+            className={styles.cartProductContainer}
+            key={product.id}
+          >
             <div className={styles.textFullCartContainer}>
               <div className='titleS'>{product.title}</div>
 
               <div className={styles.subtitleFullCartContainer}>
-                <span className={productQuantityClass}>
-                  x{product.quantity}
-                </span>
-                <span className={styles.categoryText}>{product.price}$ ud</span>
-                <span className={styles.subtitle}>
-                  {finalProductPrice(product)}$ total
-                </span>
-              </div>
+                <div className={styles.subtitleInfoFullCartContainer}>
+                  <span className={productQuantityClass}>
+                    x{product.quantity}
+                  </span>
+                  <span className={styles.categoryText}>
+                    {product.price}$ ud
+                  </span>
+                  <span className={styles.subtitle}>
+                    {finalProductPrice(product)}$ total
+                  </span>
+                </div>
 
-              <div
-                onClick={() =>
-                  eliminateCartProduct(cartProducts, setCartProducts, product)
-                }
-                className={xButtonClass}
-              ></div>
+                <div
+                  onClick={() =>
+                    eliminateCartProduct(cartProducts, setCartProducts, product)
+                  }
+                  className={xButtonClass}
+                ></div>
+              </div>
             </div>
           </div>
         );
@@ -40,7 +47,10 @@ const CartFullContent = ({ cartProducts, setCartProducts }) => {
         <span className='titleM'>{finalCartPrice(cartProducts)}$</span>
       </div>
       <div className={styles.carbonLabelContainer}>
-        <img src='/assets/images/icon-carbon-neutral.svg' alt='' />
+        <img
+          src='/assets/images/icon-carbon-neutral.svg'
+          alt=''
+        />
         <span className={orderTotalClass}>
           This is a <span className={styles.subtitle}>carbon-neutral</span>{' '}
           delivery
